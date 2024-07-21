@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 password = os.environ.get('MONGO_SECRET')
 
-uri = f"mongodb+srv://andreyhuey:{password}@cluster0.cm9dkpy.mongodb.net/whatsapp_dictionary?retryWrites=true&w=majority"
+uri = f"mongodb+srv://andreyhuey:{password}@cluster0.cm9dkpy.mongodb.net/?retryWrites=true&w=majority"
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
