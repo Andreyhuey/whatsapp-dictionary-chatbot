@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+twilio
+pymongo
+pyngrok
+requests
+python-dotenv
