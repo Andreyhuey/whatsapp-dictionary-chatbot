@@ -1,13 +1,19 @@
 from twilio.rest import Client
+from dotenv import load_dotenv
+import os
 
-account_sid = '<account_sid>'
-auth_token = '[AuthToken]'
+load_dotenv()
+
+account_sid = os.getenv("TWILIO_ACCOUNT_SID")
+auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
+twilio_number = os.getenv('TWILIO_NUMBER')
+to_number = os.getenv('TO_NUMBER')
 
 message = client.messages.create(
-  from_='whatsapp:+2348064525018',
+  from_=f'whatsapp:{twilio_number}',  
   body='Your appointment is coming up on July 21 at 3PM',
-  to='whatsapp:+234705550113'
+  to=f'whatsapp:{to_number}'
 )
 
 print(message.sid)
