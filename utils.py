@@ -8,12 +8,10 @@ account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
 twilio_number = os.getenv('TWILIO_NUMBER')
-to_number = os.getenv('TO_NUMBER')
 
-message = client.messages.create(
-  from_=f'whatsapp:{twilio_number}',  
-  body='Your appointment is coming up on July 21 at 3PM',
-  to=f'whatsapp:{to_number}'
-)
-
-print(message.sid)
+def send_message(to_number, text):
+    message = client.messages.create(
+        from_=f'whatsapp:{twilio_number}',
+        body=text,
+        to=f'whatsapp:{to_number}'
+    )
