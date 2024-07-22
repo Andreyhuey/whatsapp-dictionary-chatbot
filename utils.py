@@ -1,13 +1,26 @@
+import logging
 from twilio.rest import Client
+from dotenv import load_dotenv
+import os
 
-account_sid = '<account_sid>'
-auth_token = '[AuthToken]'
+load_dotenv()
+
+account_sid = os.getenv("TWILIO_ACCOUNT_SID")
+auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
+twilio_number = os.getenv('TWILIO_NUMBER')
 
-message = client.messages.create(
-  from_='whatsapp:+2348064525018',
-  body='Your appointment is coming up on July 21 at 3PM',
-  to='whatsapp:+234705550113'
-)
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-print(message.sid)
+def send_message(to_number, text):
+    try: 
+        message = client.messages.create(
+            from_=f'whatsapp:{twilio_number}',
+            body=text,
+            to=f'whatsapp:{to_number}'
+            )            
+        logger.info(f'Message sent to {to_number}: {message.body}')
+    except Exception as e:
+        logger.error(f'Error sending message to {to_number}: {e}')
